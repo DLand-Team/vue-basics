@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <div style="padding: 20px">
     <el-row class="mb-4">
-      <el-input style="width: 300px;" v-model="queryList.name"></el-input>
-      <el-button type="primary" @click="fetchTableData">Search</el-button>
+      <el-space>
+        <el-input style="width: 300px" v-model="queryList.name"></el-input>
+        <el-button type="primary" @click="fetchTableData">Search</el-button>
+      </el-space>
     </el-row>
     <el-table :data="tableList" style="width: 100%">
       <el-table-column prop="date" label="Date" width="180" />
@@ -13,9 +15,8 @@
 </template>
 
 <script>
-
-import {fetchTableData} from "../apis/demo";
-import {ElMessage} from "element-plus";
+import { fetchTableData } from "../apis/demo";
+import { ElMessage } from "element-plus";
 
 export default {
   data() {
@@ -23,10 +24,10 @@ export default {
       queryList: {
         pageNum: 1,
         pageSize: 10,
-        name: '',
+        name: "",
       },
       tableList: [],
-    }
+    };
   },
   mounted() {
     this.fetchTableData();
@@ -40,10 +41,10 @@ export default {
       } catch (e) {
         ElMessage({
           message: e.message,
-          type: 'error'
+          type: "error",
         });
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
