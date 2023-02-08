@@ -10,6 +10,11 @@
       <el-table-column prop="date" label="Date" width="180" />
       <el-table-column prop="name" label="Name" width="180" />
       <el-table-column prop="address" label="Address" />
+      <el-table-column label="Actions" >
+        <template v-slot="{row}">
+          <el-button type="primary" @click="action(row)">Search</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -33,6 +38,9 @@ export default {
     this.fetchTableData();
   },
   methods: {
+    action(d) {
+      console.log(d)
+    },
     async fetchTableData() {
       try {
         // todo: add a loading
