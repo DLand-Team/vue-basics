@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<div>
+		<input id="input" type="text" value="1">
+		<button onclick="search()">search</button>
+	</div>
+	<div>
+		<table border="1">
+			<thead>
+				<th>name</th>
+				<th>age</th>
+				<th>Action</th>
+			</thead>
+			<tbody id="table-body">
+				<tr>
+					<td>tom</td>
+					<td>11</td>
+					<th>
+						<button onclick="search()">search</button>
+					</th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		const data = [
+			{
+				name: 'tom',
+				age: 2
+			},
+			{
+				name: 'jerry',
+				age: 1
+			},
+		]
+		const inputEle = document.querySelector('#input');
+		const tableBodyEle = document.querySelector('#table-body');
+		function renderBody() {
+			tableBodyEle.innerHTML = '';
+			data.forEach(i => {
+				tableBodyEle.innerHTML += `
+					<tr>
+						<td>${i.name}</td>
+						<td>${i.age}</td>
+						<th>
+							<button onclick="action('${i.name}')">action</button>
+						</th>
+					</tr>
+				`;
+			});
+		}
+		renderBody();
+		function action(data) {
+			console.log('action', data)
+		}
+		function search() {
+			console.log('search', inputEle.value)
+		}
+	</script>
+</body>
+</html>
