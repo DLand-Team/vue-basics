@@ -1,17 +1,18 @@
-import {http} from "@/http";
-
+import { http } from "@/http";
 
 export interface TableDataParams {
-    pageNum: number;
-    pageSize: number;
-    name: string;
+  pageNum: number;
+  pageSize: number;
+  name: string;
 }
 
-export const fetchTableData = async (params: TableDataParams) => {
-    const res: {
-        date: string;
-        name: string;
-        address: string;
-    }[] = await http.post('/getTableData', params);
-    return res;
-}
+export type TabelData = {
+  date: string;
+  name: string;
+  address: string;
+}[];
+
+export const fetchTableData = async (p: TableDataParams) => {
+  const res = await http.post<TabelData>("/getTableData", p);
+  return res;
+};

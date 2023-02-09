@@ -1,19 +1,21 @@
-
 <template>
+  <RouterLink to="/demo">demo</RouterLink> &nbsp;&nbsp;&nbsp;
+  <RouterLink to="/demo-composition">demo-composition</RouterLink>
+  <br />
   <RouterView />
 </template>
 <script>
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
-import {fetchTableData} from "@/apis/demo";
-import {ElMessage} from "element-plus";
+import { fetchTableData } from "@/apis/demo";
+import { ElMessage } from "element-plus";
 export default {
   components: {
     HelloWorld,
     RouterLink,
     RouterView,
   },
-}
+};
 </script>
 
 <style scoped>
