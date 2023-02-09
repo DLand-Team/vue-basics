@@ -1,12 +1,14 @@
 <template>
   <div style="padding: 20px">
     <el-row class="mb-4">
-      <el-space>
-        <el-input style="width: 300px" v-model="queryList.name"></el-input>
-        <el-button type="primary" @click="fetchTableData">Search</el-button>
-      </el-space>
+      <SearchInput
+        :value="queryList.name"
+        @input-value="input"
+        :loading="loading"
+        @search="fetchData"
+      />
     </el-row>
-    <el-table :data="tableList" style="width: 100%">
+    <el-table :data="tableList" style="width: 100%" v-loading="loading">
       <el-table-column prop="date" label="Date" width="180" />
       <el-table-column prop="name" label="Name" width="180" />
       <el-table-column prop="address" label="Address" />
@@ -22,8 +24,12 @@
 <script>
 import { fetchTableData } from "../apis/demo";
 import { ElMessage } from "element-plus";
+import SearchInput from "@/components/SearchInput.vue";
 
 export default {
+  components: {
+    SearchInput,
+  },
   data() {
     return {
       queryList: {
@@ -31,26 +37,32 @@ export default {
         pageSize: 10,
         name: "",
       },
+      loading: false,
       tableList: [],
     };
   },
   mounted() {
-    this.fetchTableData();
+    this.fetchData();
   },
   methods: {
     action(d) {
       console.log(d);
     },
-    async fetchTableData() {
+    input(v) {
+      console.log(v);
+      this.queryList.name = v;
+    },
+    async fetchData() {
       try {
+        if (this.loading) {
+          return;
+        }
+        this.loading = true;
         // todo: add a loading
         const res = await fetchTableData(this.queryList);
         this.tableList = res.data;
-      } catch (e) {
-        ElMessage({
-          message: e.message,
-          type: "error",
-        });
+      } finally {
+        this.loading = false;
       }
     },
   },

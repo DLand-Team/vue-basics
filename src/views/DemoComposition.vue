@@ -1,12 +1,12 @@
 <template>
   <div style="padding: 20px">
     <el-row class="mb-4">
-      <el-space>
-        <el-input style="width: 300px" v-model="data.queryList.name"></el-input>
-        <el-button type="primary" :disabled="data.loading" @click="fetchData"
-          >Search</el-button
-        >
-      </el-space>
+      <SearchInput
+        :value="data.queryList.name"
+        @input-value="input"
+        :loading="data.loading"
+        @search="fetchData"
+      />
     </el-row>
     <el-table
       :data="data.tableList"
@@ -29,7 +29,7 @@
 import type { TabelData } from "../apis/demo";
 import { onMounted } from "vue";
 import { useDemoStore } from "@/stores/demo";
-
+import SearchInput from "@/components/SearchInput.vue";
 const { data, fetchData } = useDemoStore();
 
 onMounted(() => {
@@ -38,5 +38,10 @@ onMounted(() => {
 
 function action(row: TabelData[number]) {
   console.log(row);
+}
+function input(v) {
+  if (typeof v === "string") {
+    data.queryList.name = v;
+  }
 }
 </script>
